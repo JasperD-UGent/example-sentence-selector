@@ -1,0 +1,15 @@
+# virtual environment
+/venv
+
+# Python cache folders
+**/__pycache__
+
+# PyCharm folders
+/.idea
+
+# datasets
+/input/datasets_procsd
+
+# output and temp folders
+/output
+/temp
