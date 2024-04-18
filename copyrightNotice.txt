@@ -1,4 +1,4 @@
-Word Sense Disambiguation for Intelligent Computer-Assisted Language Learning
+Example Sentence Selector
 Copyright (C) 2023  Jasper Degraeuwe
 
 This program is free software: you can redistribute it and/or modify
