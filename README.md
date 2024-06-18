@@ -58,4 +58,3 @@ The module makes uses of several linguistic resources, stored in a [dedicated re
 
 ## References
 - Degraeuwe, J. (2024). *IVESS: Intelligent Vocabulary and Example Selection for Spanish vocabulary learning* [PhD thesis]. Universiteit Gent.
-
