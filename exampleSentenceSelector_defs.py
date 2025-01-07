@@ -620,7 +620,7 @@ def apply_example_selection_method(
 
             #   - additional lexical criteria: sensitive vocabulary
             if d_criteria["no_sensitive_voc"] and set(l_lems_target_item_excl).intersection(set(l_sensitive_voc)):
-                l_sents_filtered_out.append((sent, "sensitive_vocabulary"))
+                l_sents_filtered_out.append((sent, "sensitive_voc"))
                 continue
 
             # APPLY SELECTION CRITERIA (rankers; define values per sentence)
@@ -744,7 +744,7 @@ def apply_example_selection_method(
             l_idxs_compare_to = []
             pos_head = l_pos_tags[idx_head]
 
-            if pos_head in ["NOUN", "VERB", "ADJ", "ADV"]:
+            if pos_head in ["NOUN", "VERB", "ADJ", "ADV"] and idx_head != idx:  # avoid that the target item is being compared to itself (e.g., when it is the root)
                 tok_head = l_toks[idx_head]
                 lem_head = l_lems[idx_head]
                 l_items_compare_to.append(tok_head)
@@ -759,12 +759,14 @@ def apply_example_selection_method(
 
             for tup in l_tups_pos_tok_lem:
 
-                if tup[0] in ["NOUN", "VERB", "ADJ", "ADV"]:
-                    l_items_compare_to.append(tup[1])
-                    l_idxs_compare_to.append(tup[3])
+                if tup[3] != idx:  # avoid that the target item is being compared to itself (e.g., when it is the root)
 
-                    if tup[2] != tup[1]:
-                        l_items_compare_to.append(tup[2])
+                    if tup[0] in ["NOUN", "VERB", "ADJ", "ADV"]:
+                        l_items_compare_to.append(tup[1])
+                        l_idxs_compare_to.append(tup[3])
+
+                        if tup[2] != tup[1]:
+                            l_items_compare_to.append(tup[2])
 
             avg_static_sim = retrieve_similarity_scores_w2v(lem, l_items_compare_to, w2v_vecs)
             avg_contextualised_sim = retrieve_similarity_scores_contextualised(
