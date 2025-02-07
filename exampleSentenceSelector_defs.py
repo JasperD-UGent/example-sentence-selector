@@ -671,14 +671,13 @@ def apply_example_selection_method(
             if d_criteria["min_sent_length"] is None and d_criteria["max_sent_length"] is None:
                 abs_diff_sent_length = 0
             else:
+                min_sent_length = d_criteria["min_sent_length"] if d_criteria["min_sent_length"] is not None else 0
+                max_sent_length = d_criteria["max_sent_length"] if d_criteria["max_sent_length"] is not None else 10000
 
-                if d_criteria["min_sent_length"] <= sent_length <= d_criteria["max_sent_length"]:
+                if min_sent_length <= sent_length <= max_sent_length:
                     abs_diff_sent_length = 0
                 else:
-                    abs_diff_sent_length = min(
-                        [abs(sent_length - d_criteria["min_sent_length"]),
-                         abs(sent_length - d_criteria["max_sent_length"])]
-                    )
+                    abs_diff_sent_length = min([abs(sent_length - min_sent_length), abs(sent_length - max_sent_length)])
 
             d_to_be_ranked_sent_length[sent] = abs_diff_sent_length
 
